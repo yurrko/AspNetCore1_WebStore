@@ -57,6 +57,9 @@ namespace WebStore.Controllers
         [Route( "edit/{id?}" )]
         public IActionResult Edit( EmployeeView model )
         {
+            if ( !ModelState.IsValid )
+                return View( model );
+
             if ( model.id > 0 )
             {
                 var dbItem = _employeesData.GetById( model.id );

@@ -35,6 +35,7 @@ namespace WebStore
             services.AddMvc();
             // Добавляем разрешение зависимости
             services.AddSingleton<IEmployeesData , InMemoryEmployeesData>();
+            services.AddSingleton<IProductData , InMemoryProductData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

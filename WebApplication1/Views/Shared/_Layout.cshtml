@@ -29,7 +29,7 @@
 </head><!--/head-->
 
 <body>
-    @await Html.PartialAsync( "Partial/_Header" )
+    @await Html.PartialAsync( "_Header" )
 
     @await RenderSectionAsync("top", false)
     <section>
@@ -38,7 +38,7 @@
         </div>
     </section>
 
-    @await Html.PartialAsync( "Partial/_Footer" )
+    @await Html.PartialAsync( "_Footer" )
 
     <script src="~/template/js/jquery.js"></script>
     <script src="~/template/js/bootstrap.min.js"></script>
