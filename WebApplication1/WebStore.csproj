@@ -23,12 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebStore.Domain\WebStore.Domain.csproj" />
+    <ProjectReference Include="..\WebStore.DomainNew\WebStore.DomainNew.csproj" />
+    <ProjectReference Include="C:\Users\Yurrko\Desktop\WebStore\WebStore.DAL\WebStore.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

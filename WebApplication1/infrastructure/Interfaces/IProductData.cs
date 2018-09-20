@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WebStore.Domain.Entities;
-using WebStore.Domain.Filters;
+using WebStore.DomainNew.Entities;
+using WebStore.DomainNew.Filters;
 
 namespace WebStore.infrastructure.Interfaces
 {

@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
+using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
-using WebStore.DomainNew.Filters;
-using WebStore.infrastructure.Interfaces;
-
-namespace WebStore.infrastructure.Implementations
+namespace WebStore.Data
 {
-    public class InMemoryProductData : IProductData
+    public static class DbInitializer
     {
-        private readonly List<Section> _sections;
-        private readonly List<Brand> _brands;
-        private readonly List<Product> _products;
-
-        public InMemoryProductData()
+        public static void Initialize( WebStoreContext context )
         {
-            _sections = new List<Section>()
+            context.Database.EnsureCreated();
+            // Look for any products.
+            if ( context.Products.Any() )
+            {
+                return; // DB has been seeded
+            }
+            var sections = new List<Section>()
             {
                 new Section()
                 {
@@ -34,78 +33,78 @@ namespace WebStore.infrastructure.Implementations
                 },
                 new Section()
                 {
-                    Id = 3 ,
-                    Name = "Under Armour" ,
-                    Order = 1 ,
+                    Id = 3,
+                    Name = "Under Armour",
+                    Order = 1,
                     ParentId = 1
                 },
                 new Section()
                 {
-                    Id = 4 ,
-                    Name = "Adidas" ,
-                    Order = 2 ,
+                    Id = 4,
+                    Name = "Adidas",
+                    Order = 2,
                     ParentId = 1
                 },
                 new Section()
                 {
-                    Id = 5 ,
-                    Name = "Puma" ,
-                    Order = 3 ,
+                    Id = 5,
+                    Name = "Puma",
+                    Order = 3,
                     ParentId = 1
                 },
                 new Section()
                 {
-                    Id = 6 ,
-                    Name = "ASICS" ,
-                    Order = 4 ,
+                    Id = 6,
+                    Name = "ASICS",
+                    Order = 4,
                     ParentId = 1
                 },
                 new Section()
                 {
-                    Id = 7 ,
-                    Name = "Mens" ,
-                    Order = 1 ,
+                    Id = 7,
+                    Name = "Mens",
+                    Order = 1,
                     ParentId = null
                 },
                 new Section()
                 {
-                    Id = 8 ,
-                    Name = "Fendi" ,
-                    Order = 0 ,
+                    Id = 8,
+                    Name = "Fendi",
+                    Order = 0,
                     ParentId = 7
                 },
                 new Section()
                 {
-                    Id = 9 ,
-                    Name = "Guess" ,
-                    Order = 1 ,
+                    Id = 9,
+                    Name = "Guess",
+                    Order = 1,
                     ParentId = 7
                 },
                 new Section()
                 {
-                    Id = 10 ,
-                    Name = "Valentino" ,
-                    Order = 2 ,
+                    Id = 10,
+                    Name = "Valentino",
+                    Order = 2,
                     ParentId = 7
                 },
                 new Section()
                 {
-                    Id = 11 ,
-                    Name = "Dior" ,
-                    Order = 3 ,
+                    Id = 11,
+                    Name = "Dior",
+                    Order = 3,
                     ParentId = 7
                 },
                 new Section()
                 {
-                    Id = 12 ,
-                    Name = "Versace" ,
-                    Order = 4 ,
+                    Id = 12,
+                    Name = "Versace",
+                    Order = 4,
                     ParentId = 7
                 },
                 new Section()
                 {
-                    Id = 13 ,
-                    Name = "Armani" ,
+                    Id = 13,
+                    Name = "Armani",
                     Order = 5,
                     ParentId = 7
                 },
@@ -127,109 +126,120 @@ namespace WebStore.infrastructure.Implementations
                 {
                     Id = 16,
                     Name = "Chanel",
-                    Order = 8 ,
+                    Order = 8,
                     ParentId = 7
                 },
                 new Section()
                 {
-                    Id = 17 ,
-                    Name = "Gucci" ,
-                    Order = 1 ,
+                    Id = 17,
+                    Name = "Gucci",
+                    Order = 1,
                     ParentId = 7
                 },
                 new Section()
                 {
-                    Id = 18 ,
-                    Name = "Womens" ,
-                    Order = 2 ,
+                    Id = 18,
+                    Name = "Womens",
+                    Order = 2,
                     ParentId = null
                 },
                 new Section()
                 {
-                    Id = 19 ,
-                    Name = "Fendi" ,
-                    Order = 0 ,
+                    Id = 19,
+                    Name = "Fendi",
+                    Order = 0,
                     ParentId = 18
                 },
                 new Section()
                 {
-                    Id = 20 ,
-                    Name = "Guess" ,
-                    Order = 1 ,
+                    Id = 20,
+                    Name = "Guess",
+                    Order = 1,
                     ParentId = 18
                 },
                 new Section()
                 {
-                    Id = 21 ,
-                    Name = "Valentino" ,
-                    Order = 2 ,
+                    Id = 21,
+                    Name = "Valentino",
+                    Order = 2,
                     ParentId = 18
                 },
                 new Section()
                 {
-                    Id = 22 ,
-                    Name = "Dior" ,
-                    Order = 3 ,
+                    Id = 22,
+                    Name = "Dior",
+                    Order = 3,
                     ParentId = 18
                 },
                 new Section()
                 {
-                    Id = 23 ,
-                    Name = "Versace" ,
-                    Order = 4 ,
+                    Id = 23,
+                    Name = "Versace",
+                    Order = 4,
                     ParentId = 18
                 },
                 new Section()
                 {
-                    Id = 24 ,
-                    Name = "Kids" ,
-                    Order = 3 ,
+                    Id = 24,
+                    Name = "Kids",
+                    Order = 3,
                     ParentId = null
                 },
                 new Section()
                 {
-                    Id = 25 ,
-                    Name = "Fashion" ,
-                    Order = 4 ,
+                    Id = 25,
+                    Name = "Fashion",
+                    Order = 4,
                     ParentId = null
                 },
                 new Section()
                 {
-                    Id = 26 ,
-                    Name = "Households" ,
-                    Order = 5 ,
+                    Id = 26,
+                    Name = "Households",
+                    Order = 5,
                     ParentId = null
                 },
                 new Section()
                 {
-                    Id = 27 ,
-                    Name = "Interiors" ,
-                    Order = 6 ,
+                    Id = 27,
+                    Name = "Interiors",
+                    Order = 6,
                     ParentId = null
                 },
                 new Section()
                 {
-                    Id = 28 ,
-                    Name = "Clothing" ,
-                    Order = 7 ,
+                    Id = 28,
+                    Name = "Clothing",
+                    Order = 7,
                     ParentId = null
                 },
                 new Section()
                 {
-                    Id = 29 ,
-                    Name = "Bags" ,
-                    Order = 8 ,
+                    Id = 29,
+                    Name = "Bags",
+                    Order = 8,
                     ParentId = null
                 },
                 new Section()
                 {
-                    Id = 30 ,
-                    Name = "Shoes" ,
-                    Order = 9 ,
+                    Id = 30,
+                    Name = "Shoes",
+                    Order = 9,
                     ParentId = null
                 }
             };
-            _brands = new List<Brand>()
+            using ( var trans = context.Database.BeginTransaction() )
+            {
+                foreach ( var section in sections )
+                {
+                    context.Sections.Add( section );
+                }
+                context.Database.ExecuteSqlCommand( "SET IDENTITY_INSERT [dbo].[Sections] ON" );
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand( "SET IDENTITY_INSERT [dbo].[Sections] OFF" );
+                trans.Commit();
+            }
+            var brands = new List<Brand>()
             {
                 new Brand()
                 {
@@ -274,9 +284,19 @@ namespace WebStore.infrastructure.Implementations
                     Order = 6
                 },
             };
-            _products = new List<Product>()
+            using ( var trans = context.Database.BeginTransaction() )
             {
-                new Product ()
+                foreach ( var brand in brands )
+                {
+                    context.Brands.Add( brand );
+                }
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand( "SET IDENTITY_INSERT [dbo].[Brands] OFF" );
+                trans.Commit();
+            }
+            var products = new List<Product>()
+            {
+                new Product()
                 {
                     Id = 1,
                     Name = "Easy Polo Black Edition",
@@ -286,7 +306,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 2,
                     BrandId = 1
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 2,
                     Name = "Easy Polo Black Edition",
@@ -296,7 +316,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 2,
                     BrandId = 1
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 3,
                     Name = "Easy Polo Black Edition",
@@ -306,7 +326,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 2,
                     BrandId = 1
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 4,
                     Name = "Easy Polo Black Edition",
@@ -316,7 +336,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 2,
                     BrandId = 1
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 5,
                     Name = "Easy Polo Black Edition",
@@ -326,7 +346,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 2,
                     BrandId = 2
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 6,
                     Name = "Easy Polo Black Edition",
@@ -336,7 +356,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 2,
                     BrandId = 2
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 7,
                     Name = "Easy Polo Black Edition",
@@ -346,7 +366,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 2,
                     BrandId = 2
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 8,
                     Name = "Easy Polo Black Edition",
@@ -356,7 +376,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 25,
                     BrandId = 2
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 9,
                     Name = "Easy Polo Black Edition",
@@ -366,7 +386,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 25,
                     BrandId = 2
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 10,
                     Name = "Easy Polo Black Edition",
@@ -376,7 +396,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 25,
                     BrandId = 3
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 11,
                     Name = "Easy Polo Black Edition",
@@ -386,7 +406,7 @@ namespace WebStore.infrastructure.Implementations
                     SectionId = 25,
                     BrandId = 3
                 },
-                new Product ()
+                new Product()
                 {
                     Id = 12,
                     Name = "Easy Polo Black Edition",
@@ -397,25 +417,17 @@ namespace WebStore.infrastructure.Implementations
                     BrandId = 3
                 },
             };
-        }
-        public IEnumerable<Section> GetSections()
-        {
-            return _sections;
-        }
-        public IEnumerable<Brand> GetBrands()
-        {
-            return _brands;
-        }
-
-        public IEnumerable<Product> GetProducts( ProductFilter filter )
-        {
-            var products = _products;
-            if ( filter.SectionId.HasValue )
-                products = products.Where( p => p.SectionId.Equals( filter.SectionId ) ).ToList();
-            if ( filter.BrandId.HasValue )
-                products = products.Where( p => p.BrandId.HasValue && p.BrandId.Value.Equals( filter.BrandId.Value ) ).ToList();
-            return products;
+            using ( var trans = context.Database.BeginTransaction() )
+            {
+                foreach ( var product in products )
+                {
+                    context.Products.Add( product );
+                }
+                context.Database.ExecuteSqlCommand( "SET IDENTITY_INSERT [dbo].[Products] ON" );
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand( "SET IDENTITY_INSERT [dbo].[Products] OFF" );
+                trans.Commit();
+            }
         }
     }
 }
-

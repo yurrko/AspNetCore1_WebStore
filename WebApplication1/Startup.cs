@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebStore.DAL.Context;
 using WebStore.infrastructure.Implementations;
 using WebStore.infrastructure.Interfaces;
+using WebStore.Infrastructure.Implementations.Sql;
 
 namespace WebStore
 {
@@ -33,9 +31,13 @@ namespace WebStore
         {
             // Добавляем сервисы, необходимые для mvc
             services.AddMvc();
-            // Добавляем разрешение зависимости
+
             services.AddSingleton<IEmployeesData , InMemoryEmployeesData>();
-            services.AddSingleton<IProductData , InMemoryProductData>();
+            services.AddScoped<IProductData , SqlProductData>();
+
+            services.AddDbContext<WebStoreContext>( options => options.UseSqlServer(
+                             Configuration.GetConnectionString( "DefaultConnection" ), b => b.MigrationsAssembly( "WebStore" ) )  );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
