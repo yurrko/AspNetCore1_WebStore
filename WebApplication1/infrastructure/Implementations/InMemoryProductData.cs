@@ -303,7 +303,7 @@ namespace WebStore.infrastructure.Implementations
                     Price = 1025,
                     ImageUrl = "product3.jpg",
                     Order = 2,
-                    SectionId = 2,
+                    SectionId = 6,
                     BrandId = 1
                 },
                 new Product ()
