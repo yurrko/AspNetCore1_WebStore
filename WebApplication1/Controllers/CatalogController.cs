@@ -18,32 +18,45 @@ namespace WebStore.Controllers
             _productData = productData;
         }
 
-        public IActionResult Shop( int? sectionId , int? brandId )
+        public IActionResult Shop( int? sectionId, int? brandId )
         {
             var products = _productData.GetProducts( new ProductFilter
             {
-                BrandId = brandId ,
-                SectionId = sectionId,
+                BrandId = brandId,
+                SectionId = sectionId
             } );
             var model = new CatalogViewModel()
             {
-                BrandId = brandId ,
-                SectionId = sectionId ,
+                BrandId = brandId,
+                SectionId = sectionId,
                 Products = products.Select( p => new ProductViewModel()
                 {
-                    Id = p.Id ,
-                    ImageUrl = p.ImageUrl ,
-                    Name = p.Name ,
-                    Order = p.Order ,
-                    Price = p.Price
+                    Id = p.Id,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name,
+                    Order = p.Order,
+                    Price = p.Price,
+                    Brand = p.Brand != null ? p.Brand.Name : string.Empty
                 } ).OrderBy( p => p.Order ).ToList()
             };
             return View( model );
         }
 
-        public IActionResult ProductDetails()
+        public IActionResult ProductDetails( int id )
         {
-            return View();
+            var product = _productData.GetProductById( id );
+            if ( product == null )
+                return NotFound();
+
+            return View( new ProductViewModel
+            {
+                Id = product.Id,
+                ImageUrl = product.ImageUrl,
+                Name = product.Name,
+                Order = product.Order,
+                Price = product.Price,
+                Brand = product.Brand != null ? product.Brand.Name : string.Empty
+            } );
         }
     }
 }

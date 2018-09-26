@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,12 @@ namespace WebStore.infrastructure.Implementations.Sql
             _context = context;
         }
 
+        public IEnumerable<Section> GetSections()
+        {
+            return _context.Sections.ToList();
+
+
+        }
         public IEnumerable<Brand> GetBrands()
         {
             return _context.Brands.ToList();
@@ -25,7 +32,7 @@ namespace WebStore.infrastructure.Implementations.Sql
 
         public IEnumerable<Product> GetProducts( ProductFilter filter )
         {
-            var query = _context.Products.AsQueryable();
+            var query = _context.Products.Include( "Brand" ).Include( "Section" ).AsQueryable();
 
             if ( filter.BrandId.HasValue )
                 query = query.Where( c => c.BrandId.HasValue && c.BrandId.Value.Equals( filter.BrandId.Value ) );
@@ -34,9 +41,10 @@ namespace WebStore.infrastructure.Implementations.Sql
             return query.ToList();
         }
 
-        public IEnumerable<Section> GetSections()
+
+        public Product GetProductById( int id )
         {
-            return _context.Sections.ToList();
+            return _context.Products.Include( "Brand" ).Include( "Section" ).FirstOrDefault( p => p.Id.Equals( id ) );
         }
     }
 }

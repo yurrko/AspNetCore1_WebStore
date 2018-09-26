@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Controllers\EmployeeController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\template\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\template\fonts\glyphicons-halflings-regular.svg" />
     <None Include="wwwroot\template\js\bootstrap.min.js" />
@@ -23,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>

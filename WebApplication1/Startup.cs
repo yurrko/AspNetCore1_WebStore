@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities;
 using WebStore.infrastructure.Implementations;
@@ -39,13 +36,14 @@ namespace WebStore
             // Добавляем сервисы, необходимые для mvc
             services.AddMvc();
 
+            //Добавляем разрешение зависимостей
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            services.AddScoped<IProductData, SqlProductData>();
+
+            //Добавляем EF Core
             services.AddDbContext<WebStoreContext>( options => options.UseSqlServer(
                 Configuration.GetConnectionString( "DefaultConnection" ) ) );
 
-            // Добавляем разрешение зависимости
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-
-            services.AddTransient<IProductData, SqlProductData>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<WebStoreContext>()
@@ -74,9 +72,12 @@ namespace WebStore
                 // If the LogoutPath is not set here, ASP.NET Core will default to / Account / Logout
                 options.LogoutPath = "/Account/Logout";
                 // If the AccessDeniedPath is not set here, ASP.NET Core will default to / Account / AccessDenied
-                options.AccessDeniedPath = "/Account/AccessDenied"; 
+                options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             } );
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ICartService, CookieCartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

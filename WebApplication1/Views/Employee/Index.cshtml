@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<EmployeeView>
 @{
-    ViewBag.Title = "Employee List";
+    ViewBag.Title = "Список сотрудников";
 }
 
 <a asp-action="Edit" class="btn btn-success">Добавить</a>
@@ -8,27 +8,39 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th></th>
+            @if ( User.IsInRole( "Administrator" ) )
+            {
+                <th></th>
+            }
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Отчество</th>
             <th>Возраст</th>
             <th>Детали</th>
-            <th>Удалить</th>
+            @if ( User.IsInRole( "Administrator" ) )
+            {
+                <th>Удалить</th>
+            }
         </tr>
     </thead>
     <tbody>
         @foreach ( var item in Model )
         {
-        <tr>
-            <td><a asp-action="Edit" asp-route-id="@item.id"><i class="fa fa-edit"></i></a></td>
-            <td>@item.FirstName</td>
-            <td>@item.SurName</td>
-            <td>@item.Patronymic</td>
-            <td>@item.Age</td>
-            <td><a asp-action="Details" asp-route-id="@item.id">Детали</a></td>
-            <td><a asp-action="Delete" asp-route-id="@item.id"><i class="fa fa-cut"></i></a></td>
-        </tr>
+            <tr>
+                @if ( User.IsInRole( "Administrator" ) )
+                {
+                    <td><a asp-action="Edit" asp-route-id="@item.id"><i class="fa fa-edit"></i></a></td>
+                }
+                <td>@item.FirstName</td>
+                <td>@item.SurName</td>
+                <td>@item.Patronymic</td>
+                <td>@item.Age</td>
+                <td><a asp-action="Details" asp-route-id="@item.id">Детали</a></td>
+                @if ( User.IsInRole( "Administrator" ) )
+                {
+                    <td><a asp-action="Delete" asp-route-id="@item.id"><i class="fa fa-cut"></i></a></td>
+                }
+            </tr>
         }
     </tbody>
 </table>

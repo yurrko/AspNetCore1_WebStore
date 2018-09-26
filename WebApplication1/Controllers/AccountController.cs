@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Model;
 using WebStore.Models.Account;
 
 namespace WebStore.Controllers
@@ -17,10 +18,6 @@ namespace WebStore.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [HttpGet]
         public IActionResult Login( string returnUrl )
@@ -80,6 +77,7 @@ namespace WebStore.Controllers
                     //await _userManager.SetEmailAsync( user, model.Email );
                     //если успешно - производим логин
                     await _signInManager.SignInAsync( user, false );
+                    await _userManager.AddToRoleAsync( user, "User" );
                     return RedirectToAction( "Index", "Home" );
                 }
                 else //иначе
