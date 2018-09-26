@@ -10,8 +10,11 @@ namespace WebStore.Domain.Entities
     {
         public int Order { get; set; }
 
-        [ForeignKey( "SectionId" )]
         public int SectionId { get; set; }
+
+        [ForeignKey( "SectionId" )]
+        public virtual Section Section { get; set; }
+
         public int? BrandId { get; set; }
 
         [ForeignKey( "BrandId" )]
