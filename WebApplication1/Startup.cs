@@ -38,7 +38,8 @@ namespace WebStore
 
             //Добавляем разрешение зависимостей
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            services.AddScoped<IProductData, SqlProductData>();
+            services.AddTransient<IProductData, SqlProductData>();
+            services.AddTransient<IOrdersService, SqlOrdersService>();
 
             //Добавляем EF Core
             services.AddDbContext<WebStoreContext>( options => options.UseSqlServer(
@@ -77,7 +78,7 @@ namespace WebStore
             } );
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddTransient<ICartService, CookieCartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,6 +96,10 @@ namespace WebStore
 
             app.UseMvc( routes =>
             {
+                routes.MapRoute(
+                name: "areas",
+                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}" );
+
                 routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}" );
