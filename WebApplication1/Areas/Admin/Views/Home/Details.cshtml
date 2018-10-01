@@ -1,0 +1,27 @@
+﻿@model WebStore.Domain.Entities.Product
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Код Производителя</th>
+            <th>Название</th>
+            <th>Порядок</th>
+            <th>Фото</th>
+            <th>Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.BrandId</td>
+            <td>@Model.Name</td>
+            <td>@Model.Order</td>
+            <td>
+                <img src="~/template/images/shop/@Model.ImageUrl" />
+            </td>
+            <td>@Model.Price</td>
+        </tr>
+    </tbody>
+    @Html.ActionLink( "Назад", "ProductList" )
+</table>
