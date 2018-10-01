@@ -5,7 +5,7 @@
 }
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Создать новый</a>
 </p>
 <table class="table">
     <thead>
@@ -54,15 +54,15 @@
                     @Html.DisplayFor( modelItem => item.BrandId )
                 </td>
                 <td>
-                    @Html.DisplayFor( modelItem => item.ImageUrl )
+                    <img class="imgSmall" src="~/template/images/shop/@Html.DisplayFor( modelItem => item.ImageUrl )" />
                 </td>
                 <td>
                     @Html.DisplayFor( modelItem => item.Price )
                 </td>
                 <td>
-                    @Html.ActionLink( "Edit", "Edit", new {/* id=item.PrimaryKey */} ) |
-                    @Html.ActionLink( "Details", "Details", new {/* id=item.PrimaryKey */} ) |
-                    @Html.ActionLink( "Delete", "Delete", new {/* id=item.PrimaryKey */} )
+                    @Html.ActionLink( "Редактировать", "Edit", new {id=item.Id} ) |
+                    @Html.ActionLink( "Подробности", "Details", new {id=item.Id} ) |
+                    @Html.ActionLink( "Удалить", "Delete", new {id=item.Id} )
                 </td>
             </tr>
         }

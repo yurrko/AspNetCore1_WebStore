@@ -111,6 +111,10 @@ min-height: 80px;
     color:#808080;
      text-decoration:none;
 }
+
+.imgSmall {
+    height: 120px;
+}
 /*==============================================
     FOOTER STYLES     
     =============================================*/
