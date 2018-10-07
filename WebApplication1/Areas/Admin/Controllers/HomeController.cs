@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
-using WebStore.infrastructure.Interfaces;
-using WebStore.Models.Product;
+using WebStore.Domain.Models.Product;
+using WebStore.Interfaces;
 
 namespace WebStore.Areas.Admin.Controllers
 {

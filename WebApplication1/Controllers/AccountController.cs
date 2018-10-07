@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Model;
-using WebStore.Models.Account;
+using WebStore.Domain.Models.Account;
 
 namespace WebStore.Controllers
 {

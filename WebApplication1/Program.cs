@@ -10,7 +10,7 @@ using System.Threading;
 using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Model;
+using WebStore.Domain.Models;
 
 namespace WebStore
 {

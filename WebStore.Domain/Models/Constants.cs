@@ -1,4 +1,4 @@
-﻿namespace WebStore.Domain.Model
+﻿namespace WebStore.Domain.Models
 {
     public class Constants
     {

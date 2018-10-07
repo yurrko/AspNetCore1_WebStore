@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebStore.infrastructure.Interfaces;
-using WebStore.Models.Order;
+using System.Collections.Generic;
+using System.Linq;
+using WebStore.Domain.Models.Order;
+using WebStore.Interfaces;
 
 namespace WebStore.Controllers
 {
