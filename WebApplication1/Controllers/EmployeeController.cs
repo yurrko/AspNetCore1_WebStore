@@ -25,7 +25,7 @@ namespace WebStore.Controllers
             // Получаем сотрудника по Id
             var employee = _employeesData.GetById( Id );
 
-            if ( ReferenceEquals( employee , null ) )
+            if ( ReferenceEquals( employee, null ) )
                 return NotFound();
 
             return View( employee );
@@ -43,7 +43,7 @@ namespace WebStore.Controllers
             if ( id.HasValue )
             {
                 model = _employeesData.GetById( id.Value );
-                if ( ReferenceEquals( model , null ) )
+                if ( ReferenceEquals( model, null ) )
                     return NotFound(); // возвращаем результат 404 Not Found
             }
             else
@@ -62,22 +62,12 @@ namespace WebStore.Controllers
 
             if ( model.id > 0 )
             {
-                var dbItem = _employeesData.GetById( model.id );
-                if ( ReferenceEquals( dbItem , null ) )
-                    return NotFound(); // возвращаем результат 404 Not Found
-
-                dbItem.FirstName = model.FirstName;
-                dbItem.SurName = model.SurName;
-                dbItem.Age = model.Age;
-                dbItem.Patronymic = model.Patronymic;
-                dbItem.DateOfEmploy = dbItem.DateOfEmploy;
-                dbItem.Salary = dbItem.Salary;
+                _employeesData.UpdateEmployee( model.id, model );
             }
             else
             {
                 _employeesData.AddNew( model );
             }
-            _employeesData.Commit();
             return RedirectToAction( nameof( Index ) );
         }
         /// <summary>

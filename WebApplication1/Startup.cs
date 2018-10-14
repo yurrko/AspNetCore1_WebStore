@@ -6,13 +6,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using WebStore.Clients.Services.Values;
+using WebStore.Clients.Services.Employees;
+using WebStore.Clients.Services.Orders;
+using WebStore.Clients.Services.Products;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities;
 using WebStore.Implementations;
 using WebStore.Implementations.Sql;
 using WebStore.Interfaces;
-using WebStore.Interfaces.Api;
 
 namespace WebStore
 {
@@ -39,9 +40,13 @@ namespace WebStore
             services.AddMvc();
 
             //Добавляем разрешение зависимостей
-            services.AddTransient<IProductData, SqlProductData>();
-            services.AddTransient<IOrdersService, SqlOrdersService>();
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            services.AddTransient<IEmployeesData, EmployeesClient>();
+
+            services.AddTransient<IProductData, ProductsClient>();
+            services.AddTransient<IOrdersService, OrdersClient>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ICartService, CookieCartService>();
 
             //Добавляем EF Core
             services.AddDbContext<WebStoreContext>( options => options.UseSqlServer(
@@ -79,10 +84,6 @@ namespace WebStore
                 options.SlidingExpiration = true;
             } );
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<ICartService, CookieCartService>();
-
-            services.AddTransient<IValuesService, ValuesClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

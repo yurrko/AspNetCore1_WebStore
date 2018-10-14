@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebStore.DAL.Context;
-using WebStore.Domain.Entities;
+using WebStore.Domain.Dto.Product;
 using WebStore.Domain.Filters;
 using WebStore.Interfaces;
 
@@ -17,60 +17,67 @@ namespace WebStore.Implementations.Sql
             _context = context;
         }
 
-        public IEnumerable<Section> GetSections()
+        public IEnumerable<SectionDto> GetSections()
         {
-            return _context.Sections.ToList();
-
-
+            return _context.Sections.Select( s => new SectionDto()
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Order = s.Order,
+                ParentId = s.ParentId
+            } ).ToList();
         }
-        public IEnumerable<Brand> GetBrands()
+
+        public IEnumerable<BrandDto> GetBrands()
         {
-            return _context.Brands.ToList();
+            return _context.Brands.Select( b => new BrandDto()
+            {
+                Id = b.Id,
+                Name = b.Name,
+                Order = b.Order
+            } ).ToList();
         }
 
-        public IEnumerable<Product> GetProducts( ProductFilter filter )
+        public IEnumerable<ProductDto> GetProducts( ProductFilter filter )
         {
             var query = _context.Products.Include( "Brand" ).Include( "Section" ).AsQueryable();
-
             if ( filter.BrandId.HasValue )
                 query = query.Where( c => c.BrandId.HasValue && c.BrandId.Value.Equals( filter.BrandId.Value ) );
             if ( filter.SectionId.HasValue )
                 query = query.Where( c => c.SectionId.Equals( filter.SectionId.Value ) );
-            return query.ToList();
-        }
-
-
-        public Product GetProductById( int id )
-        {
-            return _context.Products.Include( "Brand" ).Include( "Section" ).FirstOrDefault( p => p.Id.Equals( id ) );
-        }
-
-        public void SaveChanges( Product product )
-        {
-            var old = _context.Products.Find( product.Id );
-            old.Name = product.Name;
-            old.Order = product.Order;
-            old.Price = product.Price;
-            old.ImageUrl = product.ImageUrl;
-
-            _context.SaveChanges();
-        }
-
-        public void AddProduct (Product product)
-        {
-            _context.Products.Add( product );
-            _context.SaveChanges();
-        }
-
-        public void Delete( int id )
-        {
-            var prodtoDelete = _context.Products.Find( id );
-            if ( !(prodtoDelete is null) )
+            return query.Select( p => new ProductDto()
             {
-                _context.Products.Remove( prodtoDelete );
+                Id = p.Id,
+                Name = p.Name,
+                Order = p.Order,
+                Price = p.Price,
+                ImageUrl = p.ImageUrl,
+                Brand = p.BrandId.HasValue ? new BrandDto() { Id = p.Brand.Id, Name = p.Brand.Name, Order = p.Order } : null
+            } ).ToList();
+        }
 
-                _context.SaveChanges();
-            }
+        public ProductDto GetProductById( int id )
+        {
+            var product = _context.Products.Include( "Brand" ).Include( "Section" ).FirstOrDefault( p => p.Id.Equals( id ) );
+            if ( product == null )
+                return null;
+
+            var dto = new ProductDto()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                ImageUrl = product.ImageUrl,
+                Order = product.Order,
+                Price = product.Price
+            };
+            if ( product.Brand != null )
+                dto.Brand = new BrandDto()
+                {
+                    Id = product.Brand.Id,
+                    Name = product.Brand.Name,
+                    Order = product.Brand.Order
+                };
+            return dto;
         }
     }
 }

@@ -39,15 +39,29 @@ namespace WebStore.Implementations
             _employees.Add( model );
         }
 
-        public void Commit()
+        public EmployeeView UpdateEmployee( int id, EmployeeView entity )
         {
+            if ( entity == null )
+                throw new ArgumentNullException( nameof( entity ) );
 
+            var employee = _employees.FirstOrDefault( e => e.id.Equals( id ) );
+            if ( employee == null )
+                throw new InvalidOperationException( "Employee not exits" );
+
+            employee.Age = entity.Age;
+            employee.FirstName = entity.FirstName;
+            employee.Patronymic = entity.Patronymic;
+            employee.SurName = entity.SurName;
+            employee.DateOfEmploy = entity.DateOfEmploy;
+            employee.Salary = entity.Salary;
+
+            return employee;
         }
 
         public void Delete( int id )
         {
             var employee = GetById( id );
-            if ( !ReferenceEquals( employee , null ) )
+            if ( !ReferenceEquals( employee, null ) )
             {
                 _employees.Remove( employee );
             }
