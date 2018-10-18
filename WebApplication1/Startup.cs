@@ -2,18 +2,17 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using WebStore.Clients.Services.Employees;
 using WebStore.Clients.Services.Orders;
 using WebStore.Clients.Services.Products;
-using WebStore.DAL.Context;
+using WebStore.Clients.Services.Users;
 using WebStore.Domain.Entities;
 using WebStore.Implementations;
-using WebStore.Implementations.Sql;
 using WebStore.Interfaces;
+using WebStore.Interfaces.Api;
 
 namespace WebStore
 {
@@ -40,21 +39,28 @@ namespace WebStore
             services.AddMvc();
 
             //Добавляем разрешение зависимостей
-            services.AddTransient<IEmployeesData, EmployeesClient>();
 
+            services.AddTransient<IEmployeesData, EmployeesClient>();
             services.AddTransient<IProductData, ProductsClient>();
             services.AddTransient<IOrdersService, OrdersClient>();
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IUsersClient, UsersClient>();
+
+            services.AddTransient<IUserStore<User>, UsersClient>();
+            services.AddTransient<IUserRoleStore<User>, UsersClient>();
+            services.AddTransient<IUserClaimStore<User>, UsersClient>();
+            services.AddTransient<IUserPasswordStore<User>, UsersClient>();
+            services.AddTransient<IUserTwoFactorStore<User>, UsersClient>();
+            services.AddTransient<IUserEmailStore<User>, UsersClient>();
+            services.AddTransient<IUserPhoneNumberStore<User>, UsersClient>();
+            services.AddTransient<IUserLoginStore<User>, UsersClient>();
+            services.AddTransient<IUserLockoutStore<User>, UsersClient>();
+            services.AddTransient<IRoleStore<IdentityRole>, RolesClient>();
+
             services.AddTransient<ICartService, CookieCartService>();
-
-            //Добавляем EF Core
-            services.AddDbContext<WebStoreContext>( options => options.UseSqlServer(
-                Configuration.GetConnectionString( "DefaultConnection" ) ) );
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>( options =>
@@ -83,7 +89,6 @@ namespace WebStore
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             } );
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
