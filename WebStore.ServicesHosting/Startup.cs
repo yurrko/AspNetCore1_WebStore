@@ -13,9 +13,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities;
-using WebStore.Implementations;
-using WebStore.Implementations.Sql;
+using WebStore.Services;
+using WebStore.Services.Sql;
 using WebStore.Interfaces;
+using WebStore.Logger;
+using WebStore.Services.Middleware;
 
 namespace WebStore.ServicesHosting
 {
@@ -53,12 +55,16 @@ namespace WebStore.ServicesHosting
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure( IApplicationBuilder app, IHostingEnvironment env )
+        public void Configure( IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory )
         {
+            loggerFactory.AddLog4Net();
+
             if ( env.IsDevelopment() )
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware( typeof( ErrorHandlingMiddleware ) );
 
             app.UseMvc();
         }

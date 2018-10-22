@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
 
-        public HomeController()
+        public HomeController(ILogger logger)
         {
 
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -37,7 +37,19 @@ namespace WebStore.Controllers
             return View();
         }
 
-        public IActionResult NotFound()
+        public IActionResult ErrorStatus( string id )
+        {
+            if ( id == "404" )
+                return RedirectToAction( "PageNotFound" );
+            return Content( $"Статуcный код ошибки: {id}" );
+        }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
+
+        public IActionResult PageNotFound()
         {
             return View();
         }
