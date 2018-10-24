@@ -1,19 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using WebStore.Interfaces.Api;
 
 namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
 
-        public HomeController(ILogger logger)
-        {
+        private readonly IValuesService _valuesService;
 
+        public HomeController( IValuesService valuesService )
+        {
+            _valuesService = valuesService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var values = await _valuesService.GetAsync();
+            return View( values );
         }
 
         public IActionResult ContactUs()

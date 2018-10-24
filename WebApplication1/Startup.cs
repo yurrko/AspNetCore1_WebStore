@@ -10,9 +10,11 @@ using WebStore.Clients.Services.Employees;
 using WebStore.Clients.Services.Orders;
 using WebStore.Clients.Services.Products;
 using WebStore.Clients.Services.Users;
+using WebStore.Clients.Services.Values;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces;
 using WebStore.Interfaces.Api;
+using WebStore.Interfaces.Services;
 using WebStore.Logger;
 using WebStore.Services;
 using WebStore.Services.Middleware;
@@ -42,6 +44,7 @@ namespace WebStore
             services.AddMvc();
 
             //Добавляем разрешение зависимостей
+            services.AddTransient<IValuesService, ValuesClient>();
             services.AddTransient<IEmployeesData, EmployeesClient>();
             services.AddTransient<IProductData, ProductsClient>();
             services.AddTransient<IOrdersService, OrdersClient>();
@@ -63,6 +66,7 @@ namespace WebStore
             services.AddTransient<ILogger, Log4NetLogger>();
 
             services.AddTransient<ICartService, CookieCartService>();
+            services.AddTransient<ICartStore, CookiesCartStore>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddIdentity<User, IdentityRole>()
