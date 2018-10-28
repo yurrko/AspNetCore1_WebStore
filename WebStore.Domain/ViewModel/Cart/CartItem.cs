@@ -1,4 +1,4 @@
-﻿namespace WebStore.Domain.Models.Cart
+﻿namespace WebStore.Domain.ViewModel.Cart
 {
     public class CartItem
     {

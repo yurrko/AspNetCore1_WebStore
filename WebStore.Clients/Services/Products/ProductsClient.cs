@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using WebStore.Clients.Base;
 using WebStore.Domain.Dto.Product;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
 using WebStore.Interfaces;
 
@@ -24,12 +25,26 @@ namespace WebStore.Clients.Services.Products
             return result;
         }
 
-        public IEnumerable<BrandDto> GetBrands()
+        public SectionDto GetSectionById( int id )
+        {
+            var url = $"{ServiceAddress}/sections/{id}";
+            var result = Get<SectionDto>( url );
+            return result;
+        }
+
+        public IEnumerable<Brand> GetBrands()
         {
             var url = $"{ServiceAddress}/brands";
-            var result = Get<List<BrandDto>>( url );
+            var result = Get<List<Brand>>( url );
             return result;
 
+        }
+
+        public Brand GetBrandById( int id )
+        {
+            var url = $"{ServiceAddress}/brands/{id}";
+            var result = Get<Brand>( url );
+            return result;
         }
 
         public IEnumerable<ProductDto> GetProducts( ProductFilter filter )

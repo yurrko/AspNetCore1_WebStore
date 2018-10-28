@@ -10,5 +10,6 @@ namespace WebStore.Domain.Dto.Product
         public string ImageUrl { get; set; }
         public decimal Price { get; set; }
         public BrandDto Brand { get; set; }
+        public SectionDto Section { get; set; }
     }
 }

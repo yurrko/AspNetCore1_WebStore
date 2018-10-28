@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using WebStore.DAL.Context;
 using WebStore.Domain.Dto.Product;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
 using WebStore.Interfaces;
+
 
 namespace WebStore.Services.Sql
 {
@@ -28,14 +30,30 @@ namespace WebStore.Services.Sql
             } ).ToList();
         }
 
-        public IEnumerable<BrandDto> GetBrands()
+        public SectionDto GetSectionById( int id )
         {
-            return _context.Brands.Select( b => new BrandDto()
+            var section = _context.Sections.FirstOrDefault( c => c.Id == id );
+            if ( section != null )
             {
-                Id = b.Id,
-                Name = b.Name,
-                Order = b.Order
-            } ).ToList();
+                return new SectionDto()
+                {
+                    Id = section.Id,
+                    Name = section.Name,
+                    ParentId = section.ParentId,
+                    Order = section.Order
+                };
+            }
+            return null;
+        }
+
+        public IEnumerable<Brand> GetBrands()
+        {
+            return _context.Brands.ToList();
+        }
+
+        public Brand GetBrandById( int id )
+        {
+            return _context.Brands.FirstOrDefault( b => b.Id == id );
         }
 
         public IEnumerable<ProductDto> GetProducts( ProductFilter filter )
@@ -59,8 +77,7 @@ namespace WebStore.Services.Sql
         public ProductDto GetProductById( int id )
         {
             var product = _context.Products.Include( "Brand" ).Include( "Section" ).FirstOrDefault( p => p.Id.Equals( id ) );
-            if ( product == null )
-                return null;
+            if ( product == null ) return null;
 
             var dto = new ProductDto()
             {
@@ -68,7 +85,8 @@ namespace WebStore.Services.Sql
                 Name = product.Name,
                 ImageUrl = product.ImageUrl,
                 Order = product.Order,
-                Price = product.Price
+                Price = product.Price,
+                Section = new SectionDto() { Id = product.SectionId, Name = product.Section.Name, ParentId = product.Section.ParentId, Order = product.Section.Order }
             };
             if ( product.Brand != null )
                 dto.Brand = new BrandDto()

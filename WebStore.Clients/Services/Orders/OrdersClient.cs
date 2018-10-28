@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using WebStore.Clients.Base;
 using WebStore.Domain.Dto.Order;
-using WebStore.Domain.Models.Order;
+using WebStore.Domain.ViewModel.Order;
 using WebStore.Interfaces;
 
 namespace WebStore.Clients.Services.Orders

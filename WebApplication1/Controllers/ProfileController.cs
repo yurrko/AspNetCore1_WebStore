@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using WebStore.Domain.Models.Order;
+using WebStore.Domain.ViewModel.Order;
 using WebStore.Interfaces;
 
 namespace WebStore.Controllers

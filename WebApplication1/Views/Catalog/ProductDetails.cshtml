@@ -1,18 +1,18 @@
-﻿@using WebStore.Domain.Models.Product
+﻿@using WebStore.Domain.ViewModel.Product
 @model ProductViewModel
 @{
     ViewBag.Title = "Товар:" + Model.Name;
-    Layout = "_LayoutWithSidebar";
+    Layout = "_LayoutBreadcrumbs";
 }
-
 <div class="product-details">
     <!--product-details-->
     <div class="col-sm-5">
         <div class="view-product">
             <img src="~/template/images/shop/@Model.ImageUrl" alt="" />
-            <h3> ZOOM </h3>
+            <h3>ZOOM</h3>
         </div>
         <div id="similar-product" class="carousel slide" data-ride="carousel">
+
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
                 <div class="item active">
@@ -48,8 +48,6 @@
                 <img src="~/template/images/product-details/rating.png" alt="" />
                 <span>
                     <span> @Model.Price.ToString( "C" ) </span>
-                    <label> Количество: </label>
-                    <input type="text" value="3" />
                     <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-fefault cart">
                         <i class="fa fa-shopping-cart"></i>
                         Добавить в корзину

@@ -6,8 +6,8 @@ using System.Linq;
 using WebStore.DAL.Context;
 using WebStore.Domain.Dto.Order;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Models.Cart;
-using WebStore.Domain.Models.Order;
+using WebStore.Domain.ViewModel.Cart;
+using WebStore.Domain.ViewModel.Order;
 using WebStore.Interfaces;
 
 namespace WebStore.Services.Sql

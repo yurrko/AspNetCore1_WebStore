@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using WebStore.Controllers;
 using WebStore.Domain.Dto.Order;
-using WebStore.Domain.Models.Cart;
-using WebStore.Domain.Models.Order;
-using WebStore.Domain.Models.Product;
+using WebStore.Domain.ViewModel.Cart;
+using WebStore.Domain.ViewModel.Order;
+using WebStore.Domain.ViewModel.Product;
 using WebStore.Interfaces;
 using Assert = Xunit.Assert;
 

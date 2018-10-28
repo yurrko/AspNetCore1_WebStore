@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using WebStore.Domain.Dto.Product;
 using WebStore.Domain.Filters;
-using WebStore.Domain.Models.Cart;
-using WebStore.Domain.Models.Product;
+using WebStore.Domain.ViewModel.Cart;
+using WebStore.Domain.ViewModel.Product;
 using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
-using WebStore.Services;
+using WebStore.Services.Cart;
 using Assert = Xunit.Assert;
 
 namespace WebStore.Tests

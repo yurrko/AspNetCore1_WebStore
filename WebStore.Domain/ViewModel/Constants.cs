@@ -1,4 +1,4 @@
-﻿namespace WebStore.Domain.Models
+﻿namespace WebStore.Domain.ViewModel
 {
     public class Constants
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using WebStore.Controllers;
 using WebStore.Domain.Dto.Product;
 using WebStore.Domain.Filters;
-using WebStore.Domain.Models.Product;
+using WebStore.Domain.ViewModel.Product;
 using WebStore.Interfaces;
 
 namespace WebStore.Tests

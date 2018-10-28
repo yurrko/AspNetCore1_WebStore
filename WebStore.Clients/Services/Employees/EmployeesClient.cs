@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using WebStore.Clients.Base;
-using WebStore.Domain.Models.Product;
+using WebStore.Domain.ViewModel.Product;
 using WebStore.Interfaces;
 
 namespace WebStore.Clients.Services.Employees

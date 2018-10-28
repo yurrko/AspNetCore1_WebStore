@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.Domain.Models.Product
+namespace WebStore.Domain.ViewModel.Product
 {
     public class ProductViewModel : INamedEntity, IOrderedEntity
     {

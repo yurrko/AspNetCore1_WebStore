@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using WebStore.Domain.Filters;
-using WebStore.Domain.Models.Cart;
-using WebStore.Domain.Models.Product;
+using WebStore.Domain.ViewModel.Cart;
+using WebStore.Domain.ViewModel.Product;
 using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Services
+namespace WebStore.Services.Cart
 {
     public class CartService : ICartService
     {

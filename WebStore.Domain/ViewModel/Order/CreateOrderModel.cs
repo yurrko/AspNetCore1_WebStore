@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using WebStore.Domain.Dto.Order;
 
-namespace WebStore.Domain.Models.Order
+namespace WebStore.Domain.ViewModel.Order
 {
     public class CreateOrderModel
     {

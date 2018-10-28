@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebStore.Domain.Dto.Product;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Filters;
 using WebStore.Interfaces;
+
 
 namespace WebStore.ServicesHosting.Controllers
 {
@@ -23,10 +25,22 @@ namespace WebStore.ServicesHosting.Controllers
             return _productData.GetSections();
         }
 
+        [HttpGet( "sections/{id}" )]
+        public SectionDto GetSectionById( int id )
+        {
+            return _productData.GetSectionById( id );
+        }
+
         [HttpGet( "brands" )]//GET api/products/brands
-        public IEnumerable<BrandDto> GetBrands()
+        public IEnumerable<Brand> GetBrands()
         {
             return _productData.GetBrands();
+        }
+
+        [HttpGet( "brands/{id}" )]
+        public Brand GetBrandById( int id )
+        {
+            return _productData.GetBrandById( id );
         }
 
         [HttpPost]//POST api/products
