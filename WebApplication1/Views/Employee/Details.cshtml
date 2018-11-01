@@ -1,0 +1,26 @@
+﻿@model WebStore.Domain.ViewModel.Product.EmployeeView
+
+<table>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Возраст</th>
+            <th>Дата устройства</th>
+            <th>Зарплата</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.FirstName</td>
+            <td>@Model.SurName</td>
+            <td>@Model.Patronymic</td>
+            <td>@Model.Age</td>
+            <td>@Model.DateOfEmploy.ToString( "yyyy.MM.dd" )</td>
+            <td>@Model.Salary</td>
+        </tr>
+    </tbody>
+    @Html.ActionLink("Назад", "index")
+</table>
+

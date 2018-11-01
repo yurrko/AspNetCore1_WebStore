@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title | E-Shopper</title>
+
+    <link rel="stylesheet" href="~/template/css/bootstrap.min.css" asp-append-version="true" />
+    <link href="~/template/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true">
+
+    <environment include="Development">
+        <link href="~/template/css/prettyPhoto.css" rel="stylesheet">
+        <link href="~/template/css/price-range.css" rel="stylesheet">
+        <link href="~/template/css/animate.css" rel="stylesheet">
+        <link href="~/template/css/typography.css" rel="stylesheet">
+        <link href="~/template/css/main.css" rel="stylesheet">
+        <link href="~/template/css/responsive.css" rel="stylesheet">
+    </environment>
+
+    <environment exclude="Development">
+        <link href="~/template/css/typography.min.css" rel="stylesheet" asp-append-version="true">
+        <link rel="stylesheet" href="~/template/css/site.min.css" asp-append-version="true" />
+    </environment>
+
+    <!--Секция для отображения кастомных стилей, если понадобятся-->
+    @RenderSection( "styles", false )
+    <!--[if lt IE 9]>
+    <script src="~/template/js/html5shiv.js"></script>
+    <script src="~/template/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="~/template/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/template/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/template/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/template/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/template/images/ico/apple-touch-icon-57-precomposed.png">
+    @await RenderSectionAsync( "css", false )
+</head><!--/head-->
+
+<body>
+    @await Html.PartialAsync( "_Header" )
+
+    @await RenderSectionAsync( "top", false )
+    <section>
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+
+    @await Html.PartialAsync( "_Footer" )
+
+    <script src="~/template/js/jquery.js" asp-append-version="true"></script>
+    <script src="~/template/js/bootstrap.min.js" asp-append-version="true"></script>
+
+    <environment include="Development">
+        <script src="~/template/js/jquery.scrollUp.min.js"></script>
+        <script src="~/template/js/price-range.js"></script>
+        <script src="~/template/js/jquery.prettyPhoto.js"></script>
+        <script src="~/template/js/main.js"></script>
+        <script src="~/template/js/cart/cartLogic.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/template/js/jquery.scrollUp.min.js" asp-append-version="true"></script>
+        <script src="~/template/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script type="text/javascript">
+        $(function() {
+            Cart.init({
+                addToCartLink: '@Url.Action("AddToCart","Cart")',
+                getCartViewLink: '@Url.Action("GetCartView", "Cart")',
+                removeFromCartLink: '@Url.Action("RemoveFromCart","Cart")',
+                decrementLink : '@Url.Action("DecrementFromCart", "Cart")'
+            });
+        });
+    </script>
+    <!--Секция для отображения кастомных скриптов, если понадобятся-->
+    @RenderSection( "scripts", false )
+</body>
+</html>
