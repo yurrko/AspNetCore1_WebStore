@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<string>
+@{
     ViewBag.Title = "Index";
     Layout = "_LayoutWithSidebar";
 }
@@ -8,5 +9,5 @@
 }
 
 @*@await Html.PartialAsync( "Partial/_Features" )*@
-@await Html.PartialAsync( "Partial/_CategoryTab" );
+@await Html.PartialAsync( "Partial/_CategoryTab" )
 @await Html.PartialAsync( "Partial/_RecommendItems" )

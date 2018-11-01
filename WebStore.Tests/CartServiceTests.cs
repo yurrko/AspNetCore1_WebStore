@@ -226,15 +226,17 @@ namespace WebStore.Tests
                 }
             };
 
-            var products = new List<ProductDto>()
+            var products = new PagedProductDto
             {
-                new ProductDto()
-                {
-                    Id = 1,
-                    ImageUrl = "",
-                    Name = "Test",
-                    Order = 0,
-                    Price = 1.11m,
+                Products= new[] {
+                    new ProductDto()
+                    {
+                        Id = 1,
+                        ImageUrl = "",
+                        Name = "Test",
+                        Order = 0,
+                        Price = 1.11m,
+                    }
                 }
             };
 

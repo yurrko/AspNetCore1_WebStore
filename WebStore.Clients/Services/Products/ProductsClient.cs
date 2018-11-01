@@ -47,11 +47,11 @@ namespace WebStore.Clients.Services.Products
             return result;
         }
 
-        public IEnumerable<ProductDto> GetProducts( ProductFilter filter )
+        public PagedProductDto GetProducts( ProductFilter filter )
         {
             var url = $"{ServiceAddress}";
             var response = Post( url, filter );
-            var result = response.Content.ReadAsAsync<IEnumerable<ProductDto>>().Result;
+            var result = response.Content.ReadAsAsync<PagedProductDto>().Result;
             return result;
         }
 

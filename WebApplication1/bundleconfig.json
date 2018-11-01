@@ -17,7 +17,8 @@
     "inputFiles": [
       "wwwroot/template/js/price-range.js",
       "wwwroot/template/js/jquery.prettyPhoto.js",
-      "wwwroot/template/js/main.js"
+      "wwwroot/template/js/main.js",
+      "wwwroot/template/js/cart/cartLogic.js"
     ],
     // Optionally specify minification options
     "minify": {
